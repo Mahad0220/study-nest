@@ -16,16 +16,36 @@ import {
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { VerifyEmailDto } from './dto/verify-email.dto';
+import { UserLoginDto } from './dto/user-login.dto';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
-  create(@Body() createUserDto: CreateUserDto) {
+  async create(@Body() createUserDto: CreateUserDto) {
     const { name, email } = createUserDto;
 
     return `유저를 생성했습니다. 이름: ${name}, 이메일: ${email}`;
+  }
+
+  @Post('/email-verify')
+  async verifyEmail(@Query() dto: VerifyEmailDto): Promise<string> {
+    console.log(dto);
+    return;
+  }
+
+  @Post('/login')
+  async login(@Body() dto: UserLoginDto): Promise<string> {
+    console.log(dto);
+    return;
+  }
+
+  @Get('/:id')
+  async getUserInfo(@Param('id') userId: string): Promise<string> {
+    console.log(userId);
+    return;
   }
 
   @Get()
